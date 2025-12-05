@@ -3,7 +3,7 @@ import 'package:tp_smartshop/widgets/MyAppBar.dart';
 import 'package:tp_smartshop/widgets/Categories.dart';
 import 'package:tp_smartshop/widgets/ProductTile.dart';
 import 'package:tp_smartshop/widgets/SectionTitle.dart';
-
+import 'package:tp_smartshop/Log.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? selectedCategory;
-  
+
   final List<Map<String, dynamic>> products = [
     {
       'name': 'iPhone 15',
@@ -47,10 +47,9 @@ class _HomePageState extends State<HomePage> {
     },
   ];
 
-
   List<Map<String, dynamic>> get filteredProducts {
     if (selectedCategory == null) {
-      return products; 
+      return products;
     }
     return products
         .where((product) => product['category'] == selectedCategory)
@@ -72,6 +71,7 @@ class _HomePageState extends State<HomePage> {
               onCategorySelected: (category) {
                 setState(() {
                   selectedCategory = category;
+                  Log.actions.add("Category selected : ");
                 });
               },
             ),
@@ -111,7 +111,6 @@ class _HomePageState extends State<HomePage> {
                           imagePath: product['image'],
                           name: product['name'],
                           price: product['price'],
-                          
                         );
                       },
                     ),

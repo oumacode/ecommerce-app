@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tp_smartshop/pages/HistoryPage.dart';
 import 'package:tp_smartshop/pages/SearchPage.dart';
 import 'package:tp_smartshop/pages/SettingsPage.dart';
 
@@ -27,10 +28,19 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () { 
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const Settings()),
+              MaterialPageRoute(builder: (context) => const SettingsPage()),
             );
           },
           icon: const Icon(Icons.settings),
+        ),
+        IconButton(
+          onPressed: () { 
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>  HistoryPage()),
+            );
+          },
+          icon: const Icon(Icons.history),
         ),
       ],
     );
