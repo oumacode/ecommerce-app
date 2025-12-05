@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tp_smartshop/pages/SearchPage.dart';
+import 'package:tp_smartshop/pages/SettingsPage.dart';
 
 class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String myTitle;
@@ -21,6 +22,15 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
             );
           },
           icon: const Icon(Icons.search),
+        ),
+        IconButton(
+          onPressed: () { 
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Settings()),
+            );
+          },
+          icon: const Icon(Icons.settings),
         ),
       ],
     );

@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SectionTitle(title: "Catégories"),
+            const SectionTitle(title: "Categories"),
             const SizedBox(height: 16),
             CategoriesWidget(
               onCategorySelected: (category) {
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SectionTitle(title: "Produits"),
+                const SectionTitle(title: "Products"),
                 if (selectedCategory != null)
                   TextButton(
                     onPressed: () {
@@ -111,6 +111,7 @@ class _HomePageState extends State<HomePage> {
                           imagePath: product['image'],
                           name: product['name'],
                           price: product['price'],
+                          
                         );
                       },
                     ),

@@ -53,7 +53,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                 vertical: 8.0,
               ),
               decoration: BoxDecoration(
-                color: selectedIndex == index ? Colors.teal : Colors.grey[200],
+                color: selectedIndex == index ? Colors.teal : Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(color: Colors.grey[300]!),
               ),
