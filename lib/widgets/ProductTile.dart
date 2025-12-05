@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tp_smartshop/pages/ProductDetailsPage.dart';
+import 'package:tp_smartshop/widgets/FavoriWidget.dart';
 
 class ProductTile extends StatelessWidget {
   final String name;
@@ -63,11 +64,7 @@ class ProductTile extends StatelessWidget {
                 ],
               ),
             ),
-            IconButton(
-              onPressed: () {
-              },
-              icon: const Icon(Icons.favorite_border),
-            ),
+              FavoriWidget(),
           ],
         ),
       ),
