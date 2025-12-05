@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tp_smartshop/widgets/MyAppBar.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -6,7 +7,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Profile Page")),
+      appBar: MyAppbar(myTitle: "Profile"),
       body: Column(
         children: [
           SizedBox(height: 20),

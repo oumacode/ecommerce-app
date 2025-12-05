@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:tp_smartshop/widgets/MyAppBar.dart';
 
 class ProductPage extends StatefulWidget {
   final String name;
   final String imagePath;
   final String price;
-
   const ProductPage({
     super.key,
     required this.imagePath,
     required this.name,
     required this.price,
   });
-
   @override
   State<ProductPage> createState() => _ProductPageState();
 }
@@ -35,7 +34,7 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title : Text("Product Details")),
+      appBar: MyAppbar(myTitle: "Product Details"),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tp_smartshop/pages/MainScreen.dart';
 import 'pages/HomePage.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class SmartShop extends StatelessWidget {
       title: "SmartShop",
       theme: ThemeData(primarySwatch: Colors.teal, fontFamily: "Poppins"),
       debugShowCheckedModeBanner: false, 
-      home: const HomePage(),
+      home: const MainScreen(),
     );
   }
 }
