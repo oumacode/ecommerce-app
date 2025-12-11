@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tp_smartshop/pages/prefs_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -8,9 +9,8 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  // États locaux pour les paramètres
-  bool _darkMode = false;
-  double _textSize = 16.0; 
+  bool darkMode = false;
+  double textSize = 16.0;
 
   @override
   Widget build(BuildContext context) {
@@ -19,70 +19,49 @@ class _SettingsPageState extends State<SettingsPage> {
         title: const Text('Paramètres'),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Section: Apparence
-            _buildSectionTitle('Apparence'),
-            _buildSettingTile(
-              icon: Icons.dark_mode,
-              title: 'Mode sombre',
-              trailing: Switch(
-                value: _darkMode,
-                onChanged: (value) {
-                  setState(() {
-                    _darkMode = value;
-                  });
-                },
-                activeColor: Colors.teal,
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          _sectionTitle('Apparence'),
+          _switchTile('Mode sombre', darkMode, Icons.dark_mode, (value) {
+            setState(() => darkMode = value);
+          }),
+          _sliderTile('Taille du texte', textSize, Icons.text_fields, (value) {
+            setState(() => textSize = value);
+          }),
+          const Divider(height: 20),
+          
+          // Section pour les préférences
+          _sectionTitle('Navigation'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>  PrefsPage()),
+                );
+              },
+              icon: const Icon(Icons.settings),
+              label: const Text('Go to preferences'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.teal,
+                foregroundColor: Colors.white,
+                minimumSize: const Size(double.infinity, 50),
               ),
             ),
-            
-            _buildSettingTile(
-              icon: Icons.text_fields,
-              title: 'Taille du texte',
-              subtitle: '${_textSize.toInt()} sp',
-              trailing: SizedBox(
-                width: 150,
-                child: Slider(
-                  value: _textSize,
-                  min: 12.0,
-                  max: 24.0,
-                  divisions: 12,
-                  label: '${_textSize.toInt()} sp',
-                  onChanged: (value) {
-                    setState(() {
-                      _textSize = value;
-                    });
-                  },
-                  activeColor: Colors.teal,
-                ),
-              ),
-            ),
-            
-            const Divider(height: 20, thickness: 1),
-            
-            
-            // Section: A propos
-            _buildSectionTitle('À propos'),
-            _buildSettingTile(
-              icon: Icons.info,
-              title: 'Version',
-              subtitle: '1.0.0',
-            ),
-  
-          ],
-        ),
+          ),
+          
+          _sectionTitle('À propos'),
+          _infoTile('Version', '1.0.0', Icons.info),
+        ],
       ),
     );
   }
 
-  // Méthode pour créer un titre de section
-  Widget _buildSectionTitle(String title) {
+  Widget _sectionTitle(String title) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 12.0, left: 8.0),
+      padding: const EdgeInsets.only(top: 8, bottom: 12, left: 8),
       child: Text(
         title,
         style: const TextStyle(
@@ -90,31 +69,47 @@ class _SettingsPageState extends State<SettingsPage> {
           fontWeight: FontWeight.w600,
           color: Colors.teal,
         ),
-    ),
+      ),
     );
   }
 
-  // Méthode pour créer un élément de paramètre
-  Widget _buildSettingTile({
-    required IconData icon,
-    required String title,
-    String? subtitle,
-    Widget? trailing,
-    VoidCallback? onTap,
-  }) {
+  Widget _switchTile(String title, bool value, IconData icon, Function(bool) onChanged) {
     return ListTile(
       leading: Icon(icon, color: Colors.teal),
-      title: Text(title, style: const TextStyle(fontSize: 16)),
-      subtitle: subtitle != null
-          ? Text(
-              subtitle,
-              style: const TextStyle(fontSize: 14, color: Colors.grey),
-            )
-          : null,
-      trailing: trailing,
-      onTap: onTap,
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      title: Text(title),
+      trailing: Switch(
+        value: value,
+        onChanged: onChanged,
+        activeColor: Colors.teal,
+      ),
     );
   }
+
+  Widget _sliderTile(String title, double value, IconData icon, Function(double) onChanged) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.teal),
+      title: Text(title),
+      subtitle: Text('${value.round()} sp'),
+      trailing: SizedBox(
+        width: 150,
+        child: Slider(
+          value: value,
+          min: 12,
+          max: 24,
+          divisions: 12,
+          label: '${value.round()} sp',
+          onChanged: onChanged,
+          activeColor: Colors.teal,
+        ),
+      ),
+    );
   }
+
+  Widget _infoTile(String title, String subtitle, IconData icon) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.teal),
+      title: Text(title),
+      subtitle: Text(subtitle),
+    );
+  }
+}

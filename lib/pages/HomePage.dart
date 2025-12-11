@@ -4,6 +4,7 @@ import 'package:tp_smartshop/widgets/Categories.dart';
 import 'package:tp_smartshop/widgets/ProductTile.dart';
 import 'package:tp_smartshop/widgets/SectionTitle.dart';
 import 'package:tp_smartshop/Log.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
