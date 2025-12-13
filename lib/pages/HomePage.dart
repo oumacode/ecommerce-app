@@ -1,4 +1,7 @@
+import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+
 import 'package:tp_smartshop/widgets/MyAppBar.dart';
 import 'package:tp_smartshop/widgets/Categories.dart';
 import 'package:tp_smartshop/widgets/ProductTile.dart';
@@ -14,44 +17,28 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? selectedCategory;
+  List<Map<String, dynamic>> products = [];
 
-  final List<Map<String, dynamic>> products = [
-    {
-      'name': 'iPhone 15',
-      'price': '999€',
-      'category': 'Phones',
-      'image': 'products/phone.png',
-    },
-    {
-      'name': 'Samsung Galaxy',
-      'price': '899€',
-      'category': 'Phones',
-      'image': 'products/phone.png',
-    },
-    {
-      'name': 'MacBook Pro',
-      'price': '1999€',
-      'category': 'Laptop',
-      'image': 'products/laptop.png',
-    },
-    {
-      'name': 'Dell XPS',
-      'price': '1499€',
-      'category': 'Laptop',
-      'image': 'products/laptop.png',
-    },
-    {
-      'name': 'Apple Watch',
-      'price': '399€',
-      'category': 'Watch',
-      'image': 'products/watch.png',
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    loadProducts();
+  }
 
+  // 🔥 Lire JSON depuis assets
+  Future<void> loadProducts() async {
+    final jsonString = await rootBundle.loadString("assets/products.json");
+    final jsonData = jsonDecode(jsonString);
+
+    setState(() {
+      products = List<Map<String, dynamic>>.from(jsonData);
+    });
+  }
+
+  // Filtrage par catégorie
   List<Map<String, dynamic>> get filteredProducts {
-    if (selectedCategory == null) {
-      return products;
-    }
+    if (selectedCategory == null) return products;
+
     return products
         .where((product) => product['category'] == selectedCategory)
         .toList();
@@ -63,48 +50,48 @@ class _HomePageState extends State<HomePage> {
       appBar: MyAppbar(myTitle: "SmartShop"),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SectionTitle(title: "Categories"),
-            const SizedBox(height: 16),
-            CategoriesWidget(
-              onCategorySelected: (category) {
-                setState(() {
-                  selectedCategory = category;
-                  Log.actions.add("Category selected : ");
-                });
-              },
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const SectionTitle(title: "Products"),
-                if (selectedCategory != null)
-                  TextButton(
-                    onPressed: () {
+        child: products.isEmpty
+            ? const Center(child: CircularProgressIndicator())
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SectionTitle(title: "Categories"),
+                  const SizedBox(height: 16),
+
+                  CategoriesWidget(
+                    onCategorySelected: (category) {
                       setState(() {
-                        selectedCategory = null;
+                        selectedCategory = category;
+                        Log.actions.add("Category selected : $category");
                       });
                     },
-                    child: const Text(
-                      "Tout afficher",
-                      style: TextStyle(color: Colors.teal),
-                    ),
                   ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: filteredProducts.isEmpty
-                  ? const Center(
-                      child: Text(
-                        "Aucun produit dans cette catégorie",
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
-                    )
-                  : ListView.builder(
+
+                  const SizedBox(height: 16),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SectionTitle(title: "Products"),
+                      if (selectedCategory != null)
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              selectedCategory = null;
+                            });
+                          },
+                          child: const Text(
+                            "Tout afficher",
+                            style: TextStyle(color: Colors.teal),
+                          ),
+                        ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  Expanded(
+                    child: ListView.builder(
                       itemCount: filteredProducts.length,
                       itemBuilder: (context, index) {
                         final product = filteredProducts[index];
@@ -115,9 +102,9 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                     ),
-            ),
-          ],
-        ),
+                  ),
+                ],
+              ),
       ),
     );
   }

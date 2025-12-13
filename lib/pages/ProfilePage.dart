@@ -15,13 +15,13 @@ class ProfilePage extends StatelessWidget {
             radius: 30,
             backgroundImage: AssetImage('assets/logo.png'),
           ),
-          SizedBox(height: 20),
-          Text("Oumayma Maili", style: TextStyle(fontWeight: FontWeight.bold)),
+          SizedBox(height: 20), 
+          Text("Oumayma", style: TextStyle(fontWeight: FontWeight.bold)),
           Text("Etudiante ENIAD"),
           SizedBox(height: 20),
           ListTile(
             leading: Icon(Icons.email),
-            title: Text("oumaymamaili@gmail.com"),
+            title: Text("monemail@gmail.com"),
           ),
           ListTile(leading: Icon(Icons.phone), title: Text("066666663637")),
           ListTile(

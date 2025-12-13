@@ -1,0 +1,32 @@
+[ 
+    {
+      "name": "iPhone 15",
+      "price": "999€",
+      "category": "Phones",
+      "image": "products/phone.png"
+    },
+    {
+      "name": "Samsung Galaxy",
+      "price": "899€",
+      "category": "Phones",
+      "image": "products/phone.png"
+    },
+    {
+      "name": "MacBook Pro",
+      "price": "1999€",
+      "category": "Laptop",
+      "image": "products/laptop.png"
+    },
+    {
+      "name": "Dell XPS",
+      "price": "1499€",
+      "category": "Laptop",
+      "image": "products/laptop.png"
+    },
+    {
+      "name": "Apple Watch",
+      "price": "399€",
+      "category": "Watch",
+      "image": "products/watch.png"
+    }
+] 
