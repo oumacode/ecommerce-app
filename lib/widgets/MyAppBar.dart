@@ -34,19 +34,19 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () { 
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SettingsPage()),
-            );
-          },
-          icon: const Icon(Icons.settings),
-        ),
-        IconButton(
-          onPressed: () { 
-            Navigator.push(
-              context,
               MaterialPageRoute(builder: (context) =>  HistoryPage()),
             );
           },
           icon: const Icon(Icons.history),
+        ),
+                IconButton(
+          onPressed: () { 
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingsPage()),
+            );
+          },
+          icon: const Icon(Icons.settings),
         ),
       ],
     );

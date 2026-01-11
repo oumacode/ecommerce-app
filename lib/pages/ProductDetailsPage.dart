@@ -49,14 +49,10 @@ class _ProductPageState extends State<ProductPage> {
             Text(widget.price),
             const Icon(Icons.star, color: Colors.amber),
 
-            // 🔥 BOUTON FAVORIS CORRIGÉ 🔥
+
             ElevatedButton(
               onPressed: () async {
-                await DBService.addFavorite(
-                  widget.name,
-                  double.tryParse(widget.price) ?? 0.0,
-                );
-
+                await DbService().addFavorite("stylo", 2);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text("Ajouté aux favoris !")),
                 );

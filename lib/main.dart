@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tp_smartshop/pages/MainScreen.dart';
-import 'pages/HomePage.dart';
-import 'package:tp_smartshop/services/pref_service.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  PrefsService.init();
   runApp(const SmartShop());
 }
 
